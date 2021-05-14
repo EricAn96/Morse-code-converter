@@ -32,6 +32,8 @@ class Translator:
         for line in input:
             for word in line:
                 for char in word:
+                    if char not in ENGLISH_DICT.keys():
+                        return f"Error: '{char}' is an invalid input. See the accepted keys below."
                     output += ENGLISH_DICT[char]
                 output += " "
             output += "\n"

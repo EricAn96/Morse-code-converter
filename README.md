@@ -12,4 +12,4 @@
   
   Quit: shuts down the program
   
-Feel free to contact me for any errors
+Feel free open an issue on the Github repo.

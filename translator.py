@@ -14,40 +14,35 @@ MORSE_CODE_DICT = {'A': '.-', 'B': '-...',
                    '?': '..--..', '/': '-..-.', '-': '-....-',
                    '(': '-.--.', ')': '-.--.-', " ": "/", "\n": "\n"}
 
-ENGLISH_DICT = {v:k for k,v in MORSE_CODE_DICT.items()}
+ENGLISH_DICT = {v: k for k, v in MORSE_CODE_DICT.items()}
 
 
-class Translator:
+def morse_to_english(string):
+    # filters the input by "\n", "\" and " "
+    string = list(filter(lambda x: x != "", string.split("\n")))
+    string = [list(filter(lambda x: x != "", lines.split("/"))) for lines in string]
+    string = [[list(filter(lambda x: x != "", line.split(" "))) for line in lines] for lines in string]
+    print(string)
 
-    # morse to english translation
-    def morse_to_english(self, input):
+    output = ""
+    for line in string:
+        for word in line:
+            for char in word:
+                if char not in ENGLISH_DICT.keys():
+                    return f"Error: '{char}' is an invalid input. See the accepted keys below."
+                output += ENGLISH_DICT[char]
+            output += " "
+        output += "\n"
+    return output
 
-        # filters the input by "\n", "\" and " "
-        input = list(filter(lambda x: x != "", input.split("\n")))
-        input = [list(filter(lambda x: x != "", lines.split("/"))) for lines in input]
-        input = [[list(filter(lambda x: x != "", line.split(" "))) for line in lines] for lines in input]
-        print(input)
 
-        output = ""
-        for line in input:
-            for word in line:
-                for char in word:
-                    if char not in ENGLISH_DICT.keys():
-                        return f"Error: '{char}' is an invalid input. See the accepted keys below."
-                    output += ENGLISH_DICT[char]
-                output += " "
-            output += "\n"
-        return output
-
-    # english to morse translation
-    def english_to_morse(self, input):
-
-        output = ""
-        for char in input:
-            if char not in MORSE_CODE_DICT.keys():
-                return f"Error: '{char}' is an invalid input. See the accepted keys below."
-            elif char == " ":
-                output += "/ "
-            else:
-                output += MORSE_CODE_DICT[char] + " "
-        return output
+def english_to_morse(string):
+    output = ""
+    for char in string:
+        if char not in MORSE_CODE_DICT.keys():
+            return f"Error: '{char}' is an invalid input. See the accepted keys below."
+        elif char == " ":
+            output += "/ "
+        else:
+            output += MORSE_CODE_DICT[char] + " "
+    return output

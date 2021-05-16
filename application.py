@@ -1,46 +1,49 @@
 from tkinter import *
-from translator import Translator
+from translator import *
 
 
 class Application:
     def __init__(self):
-
-        # initial setup
         self.root = Tk()
         self.root.title("morse code converter")
         self.root.resizable(False, False)
         self.root.geometry("600x380")
+
+        self.create_frames()
+        self.create_labels()
+        self.create_IO()
+        self.create_buttons()
+        self.layout_widgets()
+
+    def create_frames(self):
         self.window = Frame(self.root)
         self.button_window = Frame(self.root)
         self.instruction_window = Frame(self.root)
 
-        # labels
+    def create_labels(self):
         self.morse_to_eng = True
         self.top_label = Label(self.window, text="Morse Code: ")
         self.bottom_label = Label(self.window, text="English: ")
-
-        # Instruction
         self.instruction_label = Label(self.instruction_window, text="-Accepted keys-\n"
                                                                      "Morse: dash, dot, forward-slash\n"
                                                                      "English: A-Z, 0-9, and punctuations  . , ? / - "
                                                                      "( ) ")
 
-        # input & output
+    def create_IO(self):
         self.input_text = Text(self.window, height=8, width=70)
         self.input_text.configure(wrap="none")
         self.output_text = Text(self.window, state="disabled", height=8, width=70)
 
-        # buttons
+    def create_buttons(self):
         self.swap_button = Button(self.button_window, command=self.swap, text="Swap", width=9)
         self.convert_button = Button(self.button_window, command=self.convert, text="Convert", width=9)
         self.clear_button = Button(self.button_window, command=self.clear, text="Clear", width=9)
         self.exit_button = Button(self.button_window, command=self.quit_app, text="Quit", width=9)
-
         # key binding
         self.root.bind("<Return>", self.convert)
         self.root.bind("<Escape>", self.quit_app)
 
-        # layouts
+    def layout_widgets(self):
         self.window.grid(column=0, row=0, padx=10, pady=5)
         self.top_label.grid(column=0, row=0, pady=10, sticky="N")
         self.bottom_label.grid(column=0, row=1, pady=10, sticky="N")
@@ -59,12 +62,11 @@ class Application:
     # converts english to morse, or more to english
     def convert(self, event=None):
         entry = self.input_text.get("1.0", END).upper()
-        translator = Translator()
 
         if self.morse_to_eng:
-            output = translator.morse_to_english(entry)
+            output = morse_to_english(entry)
         else:
-            output = translator.english_to_morse(entry)
+            output = english_to_morse(entry)
 
         self.output_text.configure(state="normal")
         self.output_text.delete('1.0', END)

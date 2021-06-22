@@ -1,5 +1,8 @@
 # Morse-code-converter
 
+![image](https://user-images.githubusercontent.com/83483285/123014322-022c2480-d394-11eb-954f-0f2fb3a0ded4.png)
+
+
 How to run:
 
     Run main.py

@@ -21,4 +21,4 @@ Features:
 
     Quit: shuts down the program
   
-Feel free open an issue on the Github repo.
+Feel free to make pull request
